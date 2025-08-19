@@ -1,0 +1,179 @@
+
+body.dark {
+    --bg-dark: #121212;
+    --box-dark: #1e1e1e;
+    --text-color: #fff;
+    --highlight: gold;
+    --accent: #00ff88;
+}
+
+
+body.light {
+    --bg-dark: #f9f9f9;
+    --box-dark: #ffffff;
+    --text-color: #e0d3d3;
+    --highlight: #ff9800;
+    --accent: #007bff;
+}
+
+
+
+:root {
+    --bg-dark: #121212;
+    --box-dark: #1e1e1e;
+    --text-color: #fff;
+    --highlight: gold;
+    --accent: #00ff88;
+    --transition: all 0.4s ease;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: var(--box-dark);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    animation: fadeIn 0.6s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    color: var(--highlight);
+    font-size: 1.8rem;
+    animation: slideIn 0.5s ease-out;
+}
+
+#themeToggle {
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    color: var(--highlight);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+input, textarea {
+    background-color: #2b2b2b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    resize: none;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input:focus, textarea:focus {
+    outline: 2px solid var(--highlight);
+}
+
+#submitBtn {
+    background-color: #0f0;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#submitBtn:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+}
+
+ul#notesList {
+    list-style: none;
+    padding: 0;
+}
+
+ul#notesList li {
+    background-color: #2d2d2d;
+    border-left: 5px solid var(--highlight);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+    animation: fadeUp 0.5s ease;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+ul#notesList li h3 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: var(--highlight);
+}
+
+.note-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 1rem;
+}
+
+.note-actions button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.edit-btn {
+    background-color: #ffa500;
+    color: #000;
+}
+
+.edit-btn:hover {
+    background-color: #ffc107;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.delete-btn:hover {
+    background-color: #ff4d4d;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
