@@ -11,39 +11,55 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const form = document.getElementById('noteForm');
     form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = document.getElementById('title').value.trim();
-    const content = document.getElementById('content').value.trim();
-    if (!title || !content) return;
+        e.preventDefault();
+        const title = document.getElementById('title').value.trim();
+        const content = document.getElementById('content').value.trim();
+        if (!title || !content) return;
 
-    try {
-        await fetch('/notes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, content }),
+        try {
+            await fetch('/notes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, content }),
+            });
+            window.location.reload();
+        } catch (err) {
+            console.error('Error saving note:', err);
+        }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('dark')) {
+                document.body.classList.remove('dark');
+                document.body.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.classList.remove('light');
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
         });
-        window.location.reload();
-    } catch (err) {
-        console.error('Error saving note:', err);
     }
-    });
-
-
-    document.getElementById('themeToggle').addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-    });
 });
 
 function addNoteToList(note) {
     const notesList = document.getElementById('notesList');
     const li = document.createElement('li');
+    li.className = 'note';
     li.innerHTML = `
-        <h3>${note.title}</h3>
-        <p>${note.content}</p>
+        <div class="note-content">
+            <h3>${note.title}</h3>
+            <p>${note.content}</p>
+        </div>
         <div class="note-actions">
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
+            <button class="action-btn edit-btn" title="Edit">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+            </button>
+            <button class="action-btn delete-btn" title="Delete">
+                <i class="fa-solid fa-trash"></i> Delete
+            </button>
         </div>
     `;
     const deleteBtn = li.querySelector('.delete-btn');
@@ -75,14 +91,6 @@ function getAllNotesFromDOM() {
 }
 
 
-document.getElementById('themeToggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    document.body.classList.toggle('light');
-
-    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-    localStorage.setItem('theme', currentTheme);
-});
-
 
 function loadTheme() {
     const theme = localStorage.getItem('theme') || 'dark'; // default dark
@@ -93,43 +101,42 @@ function loadTheme() {
 
 
 document.addEventListener("click", async (e) => {
-  if (e.target.classList.contains("delete-btn")) {
-    const id = e.target.dataset.id;
+    if (e.target.classList.contains("delete-btn")) {
+        const id = e.target.dataset.id;
 
-    await fetch(`/notes/${id}`, {
-      method: "DELETE"
-    });
+        await fetch(`/notes/${id}`, {
+            method: "DELETE"
+        });
 
-    window.location.reload(); 
-  }
+        window.location.reload();
+    }
 
-  if (e.target.classList.contains("edit-btn")) {
-    const id = e.target.dataset.id;
-    const titleEl = e.target.closest(".note").querySelector("h3");
-    const contentEl = e.target.closest(".note").querySelector("p");
+    if (e.target.classList.contains("edit-btn")) {
+        const id = e.target.dataset.id;
+        const titleEl = e.target.closest(".note").querySelector("h3");
+        const contentEl = e.target.closest(".note").querySelector("p");
 
-    document.getElementById("title").value = titleEl.innerText;
-    document.getElementById("content").value = contentEl.innerText;
+        document.getElementById("title").value = titleEl.innerText;
+        document.getElementById("content").value = contentEl.innerText;
 
- 
-    const submitBtn = document.getElementById("submitBtn");
-    submitBtn.textContent = "Update Note";
 
-    submitBtn.onclick = async (ev) => {
-      ev.preventDefault();
+        // Fix UI button text wiping out icon by using innerHTML
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Update Note';
 
-      await fetch(`/notes/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: document.getElementById("title").value,
-          content: document.getElementById("content").value
-        })
-      });
+        submitBtn.onclick = async (ev) => {
+            ev.preventDefault();
 
-      window.location.reload();
-    };
-  }
+            await fetch(`/notes/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    title: document.getElementById("title").value,
+                    content: document.getElementById("content").value
+                })
+            });
+
+            window.location.reload();
+        };
+    }
 });
-
-

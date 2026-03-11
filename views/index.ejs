@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Your Notes</title>
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body class="dark">
-    <div class="container">
-      <div class="header">
-        <h1>Your Notes</h1>
-        <button id="themeToggle" type="button" >🌓</button>
-      </div>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes | Pass Saver</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="dark">
+  <div class="dashboard-container">
+    <header class="header">
+      <h1><i class="fa-solid fa-book-bookmark" style="color: var(--primary);"></i> Your Notes</h1>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn theme-toggle" type="button" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <a href="/logout" class="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a>
+      </div>
+    </header>
+
+    <section class="note-form-card">
       <form id="noteForm">
-        <input type="text" id="title" placeholder="Title" />
-        <textarea id="content" placeholder="Write your note here..."></textarea>
-        <button type="submit" id="submitBtn">Add Note</button>
+        <input type="text" id="title" placeholder="Note Title" autocomplete="off" required />
+        <textarea id="content" placeholder="Content..." required></textarea>
+        <div style="display: flex; justify-content: flex-end;">
+          <button type="submit" id="submitBtn">
+            <i class="fa-solid fa-plus"></i> Add Note
+          </button>
+        </div>
       </form>
-      <ul id="notesList">
-        <% if (notes && notes.length > 0) { %> <% notes.forEach(note => { %>
-        <li class="note">
-          <div class="note-content">
-            <h3><%= note.title %></h3>
-            <p><%= note.content %></p>
-          </div>
-          <div class="note-actions">
-            <button class="edit-btn" data-id="<%= note._id %>">Edit</button>
-            <button class="delete-btn" data-id="<%= note._id %>">Delete</button>
-          </div>
-        </li>
-        <% }) %> <% } else { %>
-        <li>No notes yet. Start by adding one!</li>
-        <% } %>
-        <a href="/logout" class="logout-btn" style="color: rgb(69, 95, 118);">Logout</a>
-      </ul>
-    </div>
-    <script src="/js/style.js"></script>
-  </body>
+    </section>
+
+    <ul id="notesList">
+      <% if (notes && notes.length> 0) { %>
+        <% notes.forEach(note=> { %>
+          <li class="note">
+            <div class="note-content">
+              <h3>
+                <%= note.title %>
+              </h3>
+              <p>
+                <%= note.content %>
+              </p>
+            </div>
+            <div class="note-actions">
+              <button class="action-btn edit-btn" data-id="<%= note._id %>" title="Edit">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+              <button class="action-btn delete-btn" data-id="<%= note._id %>" title="Delete">
+                <i class="fa-solid fa-trash"></i> Delete
+              </button>
+            </div>
+          </li>
+          <% }) %>
+            <% } %>
+    </ul>
+
+    <% if (!notes || notes.length===0) { %>
+      <div class="empty-state" id="emptyState">
+        <i class="fa-regular fa-folder-open"></i>
+        <p>No notes yet. Start by adding one above!</p>
+      </div>
+      <% } %>
+  </div>
+
+  <script src="/js/style.js"></script>
+</body>
+
 </html>

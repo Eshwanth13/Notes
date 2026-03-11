@@ -1,179 +1,432 @@
-
-body.dark {
-    --bg-dark: #121212;
-    --box-dark: #1e1e1e;
-    --text-color: #fff;
-    --highlight: gold;
-    --accent: #00ff88;
-}
-
-
-body.light {
-    --bg-dark: #f9f9f9;
-    --box-dark: #ffffff;
-    --text-color: #e0d3d3;
-    --highlight: #ff9800;
-    --accent: #007bff;
-}
-
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg-dark: #121212;
-    --box-dark: #1e1e1e;
-    --text-color: #fff;
-    --highlight: gold;
-    --accent: #00ff88;
-    --transition: all 0.4s ease;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border-color: #e2e8f0;
+    --input-bg: #f8fafc;
+    --input-focus: #ffffff;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    --shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --transition: all 0.25s ease-out
+}
+
+body.dark {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --input-bg: #0f172a;
+    --input-focus: #1e293b;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.3)
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-dark);
-    color: var(--text-color);
-    transition: var(--transition);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    background: var(--box-dark);
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
-    animation: fadeIn 0.6s ease;
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem
+}
+
+.auth-card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    animation: slideUp 0.5s ease-out
+}
+
+.auth-card h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    letter-spacing: -0.025em
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease-out
 }
 
-h1 {
-    color: var(--highlight);
-    font-size: 1.8rem;
-    animation: slideIn 0.5s ease-out;
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    letter-spacing: -0.025em
 }
 
-#themeToggle {
-    font-size: 1.5rem;
-    background: transparent;
-    border: none;
-    color: var(--highlight);
-    cursor: pointer;
-    transition: var(--transition);
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem
+}
+
+.note-form-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: 3rem;
+    animation: slideUp 0.6s ease-out
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 1.5rem;
+    gap: 1.25rem
 }
 
-input, textarea {
-    background-color: #2b2b2b;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    resize: none;
+input,
+textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     transition: var(--transition);
+    outline: none
 }
 
-input:focus, textarea:focus {
-    outline: 2px solid var(--highlight);
+textarea {
+    resize: vertical;
+    min-height: 120px
 }
 
-#submitBtn {
-    background-color: #0f0;
-    color: #000;
-    font-weight: bold;
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary)
+}
+
+input:focus,
+textarea:focus {
+    background: var(--input-focus);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-focus)
+}
+
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--primary);
+    color: white;
     border: none;
-    border-radius: 10px;
-    padding: 10px;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 1rem;
     cursor: pointer;
-    transition: var(--transition);
+    transition: var(--transition)
 }
 
-#submitBtn:hover {
-    background-color: var(--accent);
-    transform: scale(1.05);
+button:hover {
+    background: var(--primary-hover)
 }
 
-ul#notesList {
-    list-style: none;
+button:active {
+    transform: scale(0.98)
+}
+
+button * {
+    pointer-events: none
+}
+
+.icon-btn {
+    width: 44px;
+    height: 44px;
     padding: 0;
+    border-radius: 50%;
+    background: var(--input-bg);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color)
 }
 
-ul#notesList li {
-    background-color: #2d2d2d;
-    border-left: 5px solid var(--highlight);
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
-    animation: fadeUp 0.5s ease;
-    word-wrap: break-word;
-    max-width: 100%;
+.icon-btn:hover {
+    background: var(--card-bg);
+    color: var(--primary);
+    box-shadow: var(--shadow-sm)
 }
 
-ul#notesList li h3 {
-    margin: 0 0 8px;
-    font-size: 1.2rem;
-    color: var(--highlight);
+body.dark .theme-toggle .fa-moon {
+    display: inline-block
+}
+
+body.dark .theme-toggle .fa-sun {
+    display: none
+}
+
+body.light .theme-toggle .fa-moon {
+    display: none
+}
+
+body.light .theme-toggle .fa-sun {
+    display: inline-block
+}
+
+.logout-btn {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem
+}
+
+.logout-btn:hover {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.05);
+    border-color: rgba(239, 68, 68, 0.2)
+}
+
+#notesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0
+}
+
+.note {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0
+}
+
+.note:nth-child(1) {
+    animation-delay: 0.1s
+}
+
+.note:nth-child(2) {
+    animation-delay: 0.15s
+}
+
+.note:nth-child(3) {
+    animation-delay: 0.2s
+}
+
+.note:nth-child(4) {
+    animation-delay: 0.25s
+}
+
+.note:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary)
+}
+
+.note-content {
+    flex-grow: 1
+}
+
+.note h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    line-height: 1.3
+}
+
+.note p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    white-space: pre-wrap;
+    word-break: break-word
 }
 
 .note-actions {
     display: flex;
-    gap: 12px;
-    margin-top: 1rem;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+    margin-top: auto
 }
 
-.note-actions button {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: var(--transition);
+.action-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    transition: var(--transition)
 }
 
-.edit-btn {
-    background-color: #ffa500;
-    color: #000;
+.action-btn.edit-btn:hover {
+    color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+    border-color: rgba(245, 158, 11, 0.2)
 }
 
-.edit-btn:hover {
-    background-color: #ffc107;
+.action-btn.delete-btn:hover {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.05);
+    border-color: rgba(239, 68, 68, 0.2)
 }
 
-.delete-btn {
-    background-color: #dc3545;
-    color: #fff;
+.empty-state {
+    text-align: center;
+    padding: 6rem 2rem;
+    color: var(--text-secondary);
+    animation: fadeIn 0.5s ease
 }
 
-.delete-btn:hover {
-    background-color: #ff4d4d;
+.empty-state i {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--border-color)
 }
 
-/* Animations */
+.empty-state p {
+    font-size: 1.1rem
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.05);
+    color: var(--danger);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem
+}
+
+.auth-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500
+}
+
+.auth-link a:hover {
+    text-decoration: underline
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px)
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0)
+    }
 }
 
-@keyframes slideIn {
-    from { transform: translateX(-50px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+@media (max-width:640px) {
+    .dashboard-container {
+        padding: 1.5rem 1rem
+    }
+
+    .note-form-card {
+        padding: 1.5rem
+    }
+
+    .header h1 {
+        font-size: 1.5rem
+    }
+
+    .auth-card {
+        padding: 2rem 1.5rem
+    }
 }
